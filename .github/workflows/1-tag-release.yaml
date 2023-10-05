@@ -2,8 +2,7 @@ name: Deploy from tag or release
 on:
   push:
     branches:
-      - main
-      - release/**/*
+      - "!*"
     tags:
       - "v*" # only accepts not pre-release
   release:
