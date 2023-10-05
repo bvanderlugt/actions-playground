@@ -1,0 +1,30 @@
+name: Deploy from tag or release 
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]$" # only accepts not pre-release
+  release:
+      types: [published]
+
+jobs:
+  confirm-plain-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"-
+      - name: echo event type
+        run: |
+          echo "Success on event: ${{ github.event_name }}"
+  confirm-environment-run:
+    runs-on: ubuntu-latest
+    environment: Test
+    steps: 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"-
+      - name: echo event type
+        run: |
+          echo "Success in Environment ${{ github.environment }} on event: ${{ github.event_name }}"
