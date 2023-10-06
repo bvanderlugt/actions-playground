@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: detect-tag
         run: |
-          if [ github.ref_type == "tag" ]; then
+          if [ ${{ github.ref_type }} == "tag" ]; then
             TAG=${{ github.ref_name }}
           else
             TAG=${{ inputs.image_repo }}/gateway:${{ github.sha }}
