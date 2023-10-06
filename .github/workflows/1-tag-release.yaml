@@ -9,6 +9,19 @@ on:
       types: [published]
 
 jobs:
+  get-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: detect-tag
+        run: |
+          if [ github.ref_type == "tag" ]; then
+            TAG=${{ github.ref_name }}
+          else
+            TAG=${{ inputs.image_repo }}/gateway:${{ github.sha }}
+          fi
+          echo "TAG: $TAG"
+
+
   confirm-plain-run:
     runs-on: ubuntu-latest
     steps:
